@@ -1,0 +1,69 @@
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <title>NoteIt</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Edu+SA+Beginner&family=Handlee&family=Kanit:ital@1&family=Lobster&family=Righteous&family=Tektur&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Edu+SA+Beginner&family=Handlee&family=Kanit:ital@1&family=Lobster&family=Righteous&family=Teko&family=Tektur&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <h1>My Notes</h1>
+    <div class="options">
+      <button id="add">Add Note</button>
+      <button id="save">Save Notes</button>
+    </div>
+
+    <div class="note-template">
+      <div class="note">
+        <img class="delete-icon" src="delete.png" />
+        <h2 class="title" contenteditable="True">Title</h2>
+        <p class="content" contenteditable="True">Note Content</p>
+      </div>
+    </div>
+
+    <div class="notebook"></div>
+    <script>
+      $(".note-template").hide();
+
+      function addNote() {
+        var noteHtml = $(".note-template").html();
+        $(".notebook").prepend(noteHtml);
+        $(".delete-icon").click(deleteNote);
+      }
+      $("#add").click(addNote);
+
+      function deleteNote(eventObj) {
+        var clickedIcon = eventObj.currentTarget;
+        var note = $(clickedIcon).parent();
+        note.remove();
+      }
+
+      function saveNotes() {
+        var allNotes = $(".notebook").children();
+        var length = allNotes.length;
+        localStorage.setItem("totalNotes", length);
+        for (var counter in allNotes) {
+          var currentNote = allNotes[counter];
+          localStorage.setItem("note" + counter, note);
+        }
+      }
+      $("#save").click(saveNotes);
+      var total = localStorage.getItem('totalNotes');
+
+for(i=0; i<total; i++) {
+    var note = localStorage.getItem('note'+i);
+    var noteHTML = note;
+    $(".notebook").append(noteHTML);
+    $('.delete-icon').click(deleteNote);
+}
+      
+     
+    </script>
+  </body>
+</html>
